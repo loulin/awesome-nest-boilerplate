@@ -5,7 +5,15 @@
 > This is an ever-evolving, very opinionated architecture and dev environment for new node projects using [NestJS](https://nestjs.com). Questions, feedback, and for now, even bikeshedding are welcome. 😄
 
 ## Getting started
+1. Setup database
+```bash
+sudo yum install postgresql10-contrib
+```
+```sql
+create extension if not exists "uuid-ossp";
+```
 
+2. Install
 ```bash
 # 1. Clone the repository or click on "Use this template" button.
 git clone https://github.com/NarHakobyan/awesome-nest-boilerplate.git my-new-project

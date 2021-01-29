@@ -14,12 +14,12 @@ import * as _ from 'lodash';
  * @constructor
  */
 export function Trim() {
-    return Transform((value: string | string[]) => {
-        if (_.isArray(value)) {
-            return value.map((v) => _.trim(v).replace(/\s\s+/g, ' '));
-        }
-        return _.trim(value).replace(/\s\s+/g, ' ');
-    });
+  return Transform((value) => {
+    if (_.isArray(value)) {
+      return value.map((v) => _.trim(v).replace(/\s\s+/g, ' '));
+    }
+    return _.trim(value.toString()).replace(/\s\s+/g, ' ');
+  });
 }
 
 /**
@@ -32,7 +32,9 @@ export function Trim() {
  * @constructor
  */
 export function ToInt() {
-    return Transform((value) => parseInt(value, 10), { toClassOnly: true });
+  return Transform((value) => parseInt(value.toString(), 10), {
+    toClassOnly: true,
+  });
 }
 
 /**
@@ -44,13 +46,13 @@ export function ToInt() {
  * @constructor
  */
 export function ToArray(): (target: any, key: string) => void {
-    return Transform(
-        (value) => {
-            if (_.isNil(value)) {
-                return [];
-            }
-            return _.castArray(value);
-        },
-        { toClassOnly: true },
-    );
+  return Transform(
+    (value) => {
+      if (_.isNil(value)) {
+        return [];
+      }
+      return _.castArray(value);
+    },
+    { toClassOnly: true },
+  );
 }

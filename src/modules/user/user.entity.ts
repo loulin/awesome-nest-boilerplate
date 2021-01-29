@@ -1,31 +1,22 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { AbstractEntity } from '../../common/abstract.entity';
-import { RoleType } from '../../common/constants/role-type';
+import { WardEntity } from '../ward/ward.entity';
 import { UserDto } from './dto/UserDto';
 
 @Entity({ name: 'users' })
 export class UserEntity extends AbstractEntity<UserDto> {
-    @Column({ nullable: true })
-    firstName: string;
+  @Column({ default: 1 })
+  role: number;
 
-    @Column({ nullable: true })
-    lastName: string;
+  @Column({ unique: true, nullable: false })
+  username: string;
 
-    @Column({ type: 'enum', enum: RoleType, default: RoleType.USER })
-    role: RoleType;
+  @Column({ nullable: true })
+  password: string;
 
-    @Column({ unique: true, nullable: true })
-    email: string;
+  @ManyToOne(() => WardEntity)
+  ward: WardEntity;
 
-    @Column({ nullable: true })
-    password: string;
-
-    @Column({ nullable: true })
-    phone: string;
-
-    @Column({ nullable: true })
-    avatar: string;
-
-    dtoClass = UserDto;
+  dtoClass = UserDto;
 }

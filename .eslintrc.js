@@ -25,6 +25,7 @@ module.exports = {
     'settings': {
         'import/parsers': { '@typescript-eslint/parser': ['.ts'] },
     },
+    ignorePatterns: ['src/migrations'],
     plugins: [
         'eslint-plugin-import',
         'eslint-plugin-import-helpers',
@@ -48,6 +49,8 @@ module.exports = {
                 },
             },
         ],
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
         '@typescript-eslint/indent': 'off',
         '@typescript-eslint/consistent-type-definitions': 'error',
         '@typescript-eslint/member-delimiter-style': [
@@ -177,7 +180,7 @@ module.exports = {
             'error',
         ],
         'arrow-body-style': 'error',
-        'complexity': ['warn', 3],
+        'complexity': ['warn', 10],
         'constructor-super': 'error',
         'curly': 'error',
         'dot-notation': 'error',
