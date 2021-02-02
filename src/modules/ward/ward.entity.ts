@@ -1,12 +1,12 @@
 import { Column, Entity } from 'typeorm';
 
 import { AbstractEntity } from '../../common/abstract.entity';
-import { WardDto } from './dto/WardDto';
+import { WardRo } from './dto/WardRo';
 
 @Entity({ name: 'wards' })
-export class WardEntity extends AbstractEntity<WardDto> {
+export class WardEntity extends AbstractEntity<WardRo> {
   @Column({ unique: true, nullable: false })
   name: string;
 
-  dtoClass = WardDto;
+  dtoClass = WardRo;
 }

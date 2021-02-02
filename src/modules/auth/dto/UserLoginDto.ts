@@ -5,10 +5,10 @@ import { IsString } from 'class-validator';
 
 export class UserLoginDto {
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ description: '用户名' })
   readonly username: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ description: '密码' })
   readonly password: string;
 }

@@ -1,20 +1,20 @@
 'use strict';
 
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
 
-import { AbstractDto } from '../../../common/dto/AbstractDto';
-import { UserEntity } from '../user.entity';
+export class UserDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly username: string;
 
-export class UserDto extends AbstractDto {
-  @ApiPropertyOptional({ default: 1 })
-  role: number;
+  @IsString()
+  @MinLength(6)
+  @ApiProperty({ minLength: 6 })
+  readonly password: string;
 
+  @IsNumber()
   @ApiPropertyOptional()
-  username: string;
-
-  constructor(user: UserEntity) {
-    super(user);
-    this.role = user.role;
-    this.username = user.username;
-  }
+  wardId: number;
 }

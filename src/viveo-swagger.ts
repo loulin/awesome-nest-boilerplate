@@ -1,10 +1,11 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export function setupSwagger(app: INestApplication): void {
+export function setupSwagger(app: INestApplication, swaggerOpts): void {
   const options = new DocumentBuilder()
-    .setTitle('API')
-    .setVersion('0.0.1')
+    .setTitle('Terumo MediSafe API')
+    .setVersion('1.0.0')
+    .addServer(swaggerOpts.server)
     .addBearerAuth()
     .build();
 

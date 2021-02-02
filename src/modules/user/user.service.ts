@@ -3,7 +3,7 @@ import { FindConditions } from 'typeorm';
 
 import { AwsS3Service } from '../../shared/services/aws-s3.service';
 import { ValidatorService } from '../../shared/services/validator.service';
-import { UserRegisterDto } from '../auth/dto/UserRegisterDto';
+import { UserDto } from './dto/UserDto';
 import { UsersPageDto } from './dto/UsersPageDto';
 import { UsersPageOptionsDto } from './dto/UsersPageOptionsDto';
 import { UserEntity } from './user.entity';
@@ -17,39 +17,36 @@ export class UserService {
     public readonly awsS3Service: AwsS3Service,
   ) {}
 
-  /**
-   * Find single user
-   */
   findOne(findData: FindConditions<UserEntity>): Promise<UserEntity> {
-    return this.userRepository.findOne(findData);
+    return this.userRepository.findOne(findData, { relations: ['ward'] });
   }
-  async findByUsernameOrEmail(
-    options: Partial<{ username: string; email: string }>,
-  ): Promise<UserEntity | undefined> {
+
+  async findByUsername(options: {
+    username: string;
+  }): Promise<UserEntity | undefined> {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
 
-    if (options.email) {
-      queryBuilder.orWhere('user.email = :email', {
-        email: options.email,
-      });
+    if (!options.username) {
+      return null;
     }
-    if (options.username) {
-      queryBuilder.orWhere('user.username = :username', {
-        username: options.username,
-      });
-    }
+
+    queryBuilder.orWhere('user.username = :username', {
+      username: options.username,
+    });
 
     return queryBuilder.getOne();
   }
 
-  async createUser(userRegisterDto: UserRegisterDto): Promise<UserEntity> {
-    const user = this.userRepository.create(userRegisterDto);
+  async createUser(data: UserDto): Promise<UserEntity> {
+    const user = this.userRepository.create(data);
 
     return this.userRepository.save(user);
   }
 
   async getUsers(pageOptionsDto: UsersPageOptionsDto): Promise<UsersPageDto> {
-    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    const queryBuilder = this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.ward', 'ward');
     const [users, pageMetaDto] = await queryBuilder.paginate(pageOptionsDto);
 
     return new UsersPageDto(users.toDtos(), pageMetaDto);

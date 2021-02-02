@@ -6,17 +6,19 @@ import { I18nJsonParser, I18nModule } from 'nestjs-i18n';
 import * as path from 'path';
 
 import { contextMiddleware } from './middlewares';
+import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { MathModule } from './modules/math/math.module';
-import { UserModule } from './modules/user/user.module';
+import { GlucoseModule } from './modules/glucose/glucose.module';
+import { PatientModule } from './modules/patient/patient.module';
 import { ConfigService } from './shared/services/config.service';
 import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
     AuthModule,
-    UserModule,
-    MathModule,
+    PatientModule,
+    GlucoseModule,
+    AdminModule,
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ConfigService) => configService.typeOrmConfig,

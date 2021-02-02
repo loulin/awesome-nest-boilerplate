@@ -5,13 +5,13 @@ import * as _ from 'lodash';
 import { Brackets, QueryBuilder, SelectQueryBuilder } from 'typeorm';
 
 import { AbstractEntity } from './common/abstract.entity';
-import { AbstractDto } from './common/dto/AbstractDto';
+import { AbstractRo } from './common/dto/AbstractRo';
 import { PageMetaDto } from './common/dto/PageMetaDto';
 import { PageOptionsDto } from './common/dto/PageOptionsDto';
 
 declare global {
   interface Array<T> {
-    toDtos<B extends AbstractDto>(this: AbstractEntity<B>[]): B[];
+    toDtos<B extends AbstractRo>(this: AbstractEntity<B>[]): B[];
   }
 }
 
@@ -28,7 +28,7 @@ declare module 'typeorm' {
   }
 }
 
-Array.prototype.toDtos = function <B extends AbstractDto>(options?: any): B[] {
+Array.prototype.toDtos = function <B extends AbstractRo>(options?: any): B[] {
   return _(this)
     .map((item) => item.toDto(options))
     .compact()

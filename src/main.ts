@@ -30,7 +30,7 @@ async function bootstrap() {
     { cors: true },
   );
   app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(
     RateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
@@ -74,7 +74,7 @@ async function bootstrap() {
   await app.startAllMicroservicesAsync();
 
   if (['development', 'staging'].includes(configService.nodeEnv)) {
-    setupSwagger(app);
+    setupSwagger(app, { server: configService.get('SERVER') });
   }
 
   const port = configService.getNumber('PORT');

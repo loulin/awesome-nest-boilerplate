@@ -1,19 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { PageMetaDto } from '../../../common/dto/PageMetaDto';
-import { UserRo } from './UserRo';
+import { WardRo } from './WardRo';
 
-export class UsersPageDto {
+export class WardsPageDto {
   @ApiProperty({
-    type: UserRo,
+    type: WardRo,
     isArray: true,
   })
-  readonly data: UserRo[];
+  readonly data: WardRo[];
 
   @ApiProperty()
   readonly meta: PageMetaDto;
 
-  constructor(data: UserRo[], meta: PageMetaDto) {
+  constructor(data: WardRo[], meta: PageMetaDto) {
     this.data = data;
     this.meta = meta;
   }

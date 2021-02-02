@@ -7,20 +7,20 @@ import {
 } from 'typeorm';
 
 import { UtilsService } from '../providers/utils.service';
-import { AbstractDto } from './dto/AbstractDto';
+import { AbstractRo } from './dto/AbstractRo';
 
-export abstract class AbstractEntity<T extends AbstractDto = AbstractDto> {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export abstract class AbstractEntity<T extends AbstractRo = AbstractRo> {
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @CreateDateColumn({
-    type: 'timestamp without time zone',
+    type: 'timestamp with time zone',
     name: 'created_at',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'timestamp without time zone',
+    type: 'timestamp with time zone',
     name: 'updated_at',
   })
   updatedAt: Date;
