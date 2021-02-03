@@ -1,25 +1,24 @@
-'use strict';
-
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 import { SexType } from '../../../common/constants/sex-type';
-import { AbstractRo } from '../../../common/dto/AbstractRo';
-import { PatientEntity } from '../patient.entity';
 
-export class PatientDto extends AbstractRo {
+export class PatientDto {
   @ApiProperty()
+  @IsString()
   name: string;
 
+  @IsNumber()
   @ApiProperty()
   sex: SexType;
 
+  @IsOptional()
+  @IsNumber()
   @ApiPropertyOptional()
-  bed: string;
+  wardId: number;
 
-  constructor(patient: PatientEntity) {
-    super(patient);
-    this.name = patient.name;
-    this.sex = patient.sex;
-    this.bed = patient.bed;
-  }
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  bed: string;
 }

@@ -1,8 +1,9 @@
 {
-  "name": "awesome-nest-boilerplate",
-  "version": "7.0.1",
-  "description": "Awesome NestJS Boilerplate, Typescript, Postgres, TypeORM",
-  "author": "Narek Hakobyan <narek.hakobyan.07@gmail.com>",
+  "name": "terumo-medisafe",
+  "version": "1.0.0",
+  "description": "Terumo MediSafe Data Server",
+  "author": "Lin Lou <lin.lou@hotmail.com>",
+  "commit": "6ef7c204e560018e007acba8d1544cb973c2015d",
   "license": "MIT",
   "scripts": {
     "build:prod": "tsc -p tsconfig.build.json",

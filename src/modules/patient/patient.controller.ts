@@ -22,9 +22,9 @@ import { AuthUser } from '../../decorators/auth-user.decorator';
 import { AuthGuard } from '../../guards/auth.guard';
 import { AuthUserInterceptor } from '../../interceptors/auth-user-interceptor.service';
 import { UserEntity } from '../user/user.entity';
-import { PatientDto } from './dto/PatientDto';
-import { PatientsPageDto } from './dto/PatientsPageDto';
+import { PatientRo } from './dto/PatientRo';
 import { PatientsPageOptionsDto } from './dto/PatientsPageOptionsDto';
+import { PatientsPageRo } from './dto/PatientsPageRo';
 import { PatientService } from './patient.service';
 
 @Controller('api/patients')
@@ -37,7 +37,7 @@ export class PatientController {
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  async get(@Param('id') id: number): Promise<PatientDto> {
+  async get(@Param('id') id: number): Promise<PatientRo> {
     const patient = await this._patientService.findOne(id);
 
     return patient.toDto();
@@ -52,15 +52,15 @@ export class PatientController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get patients list',
-    type: PatientsPageDto,
+    type: PatientsPageRo,
   })
   getInHospitalPatients(
     @Query(new ValidationPipe({ transform: true }))
     pageOptionsDto: PatientsPageOptionsDto,
     @AuthUser() user: UserEntity,
-  ): Promise<PatientsPageDto> {
+  ): Promise<PatientsPageRo> {
     if (!user.ward) {
-      return Promise.resolve(new PatientsPageDto([]));
+      return Promise.resolve(new PatientsPageRo([]));
     }
 
     return this._patientService.find({ wardId: user.ward?.id }, pageOptionsDto);

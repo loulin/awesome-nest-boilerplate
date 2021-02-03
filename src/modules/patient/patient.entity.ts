@@ -3,10 +3,10 @@ import { Column, DeleteDateColumn, Entity, ManyToOne } from 'typeorm';
 import { AbstractEntity } from '../../common/abstract.entity';
 import { SexType } from '../../common/constants/sex-type';
 import { WardEntity } from '../ward/ward.entity';
-import { PatientDto } from './dto/PatientDto';
+import { PatientRo } from './dto/PatientRo';
 
 @Entity({ name: 'patients' })
-export class PatientEntity extends AbstractEntity<PatientDto> {
+export class PatientEntity extends AbstractEntity<PatientRo> {
   @Column({ nullable: false })
   name: string;
 
@@ -28,5 +28,5 @@ export class PatientEntity extends AbstractEntity<PatientDto> {
   @DeleteDateColumn({ type: 'timestamp with time zone', nullable: true })
   deletedAt: Date;
 
-  dtoClass = PatientDto;
+  dtoClass = PatientRo;
 }
