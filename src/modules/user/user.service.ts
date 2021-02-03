@@ -37,7 +37,7 @@ export class UserService {
     return queryBuilder.getOne();
   }
 
-  async createUser(data: UserDto): Promise<UserEntity> {
+  createUser(data: UserDto): Promise<UserEntity> {
     const user = this.userRepository.create(data);
 
     return this.userRepository.save(user);

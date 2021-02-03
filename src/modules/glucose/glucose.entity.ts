@@ -21,5 +21,11 @@ export class GlucoseEntity extends AbstractEntity<GlucoseRo> {
   @Column()
   patientId: number;
 
+  @Column({ nullable: true })
+  createdBy: number;
+
+  @Column({ nullable: true })
+  updatedBy: number;
+
   dtoClass = GlucoseRo;
 }

@@ -29,7 +29,7 @@ export class GlucoseService {
     return new GlucosesPageDto(glucoses.toDtos(), pageMetaDto);
   }
 
-  async save(item: GlucoseItemDto) {
+  async save(userId: number, item: GlucoseItemDto) {
     let glucose = await this.glucoseRepository.findOne(
       _.pick(item, ['patientId', 'date']),
     );
@@ -38,12 +38,15 @@ export class GlucoseService {
       glucose.value = item.value;
     } else {
       glucose = this.glucoseRepository.create(item);
+      glucose.createdBy = userId;
     }
+
+    glucose.updatedBy = userId;
 
     return this.glucoseRepository.save(glucose);
   }
 
-  add(items: GlucoseItemDto[]): Promise<GlucoseEntity[]> {
-    return BBPromise.map(items, async (item) => this.save(item));
+  add(userId: number, items: GlucoseItemDto[]): Promise<GlucoseEntity[]> {
+    return BBPromise.map(items, async (item) => this.save(userId, item));
   }
 }

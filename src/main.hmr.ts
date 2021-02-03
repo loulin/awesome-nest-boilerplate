@@ -41,7 +41,7 @@ async function bootstrap(): Promise<void> {
     new ValidationPipe({
       whitelist: true,
       transform: true,
-      dismissDefaultMessages: true,
+      // dismissDefaultMessages: true,
       validationError: {
         target: false,
       },

@@ -10,6 +10,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { GlucoseModule } from './modules/glucose/glucose.module';
 import { PatientModule } from './modules/patient/patient.module';
+import { QualityModule } from './modules/quality/quality.module';
 import { ConfigService } from './shared/services/config.service';
 import { SharedModule } from './shared/shared.module';
 
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     AuthModule,
     PatientModule,
     GlucoseModule,
+    QualityModule,
     AdminModule,
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],

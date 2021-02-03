@@ -92,7 +92,10 @@ export class GlucoseController {
       throw new NotFoundException(); // 权限检查
     }
 
-    const glucose = await this._glucoseService.save({ ...item, patientId });
+    const glucose = await this._glucoseService.save(user.id, {
+      ...item,
+      patientId,
+    });
 
     return glucose.toDto();
   }
@@ -122,7 +125,7 @@ export class GlucoseController {
       throw new NotFoundException(); // 权限检查
     }
 
-    const glucoses = await this._glucoseService.add(items);
+    const glucoses = await this._glucoseService.add(user.id, items);
 
     return glucoses.toDtos();
   }

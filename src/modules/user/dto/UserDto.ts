@@ -1,7 +1,13 @@
 'use strict';
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class UserDto {
   @IsString()
@@ -14,6 +20,7 @@ export class UserDto {
   @ApiProperty({ minLength: 6 })
   readonly password: string;
 
+  @IsOptional()
   @IsNumber()
   @ApiPropertyOptional()
   wardId: number;
